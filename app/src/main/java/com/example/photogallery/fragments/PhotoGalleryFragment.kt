@@ -52,7 +52,7 @@ class PhotoGalleryFragment : Fragment() {
             Observer { galleryItems ->
                 Log.d(TAG, "Items From ViewModel $galleryItems")
                 photoAdapter = PhotoAdapter(galleryItems)
-                rvPhotos.adapter = photoAdapter
+                rvPhotos.adapter = photoAdapter 
             })
     }
 

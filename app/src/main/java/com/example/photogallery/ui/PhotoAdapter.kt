@@ -13,6 +13,7 @@ import com.example.photogallery.utils.PicassoImageLoader
 class PhotoAdapter(private val galleryItems:List<GalleryItem>) :
     RecyclerView.Adapter<PhotoAdapter.Companion.PhotoHolder>() {
     private val picassoImageLoader = PicassoImageLoader()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoHolder {
         val view= LayoutInflater.from(parent?.context)
             .inflate(R.layout.photos_row,parent,false)

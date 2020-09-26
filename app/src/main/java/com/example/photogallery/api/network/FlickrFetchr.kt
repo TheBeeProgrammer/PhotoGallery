@@ -7,7 +7,6 @@ import com.example.photogallery.api.model.FlickrResponse
 import com.example.photogallery.api.model.GalleryItem
 import com.example.photogallery.api.model.PhotoResponse
 import okhttp3.OkHttpClient
-import okhttp3.Request
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
