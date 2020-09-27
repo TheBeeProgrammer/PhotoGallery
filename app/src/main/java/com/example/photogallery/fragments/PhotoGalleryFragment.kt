@@ -15,13 +15,16 @@ import com.example.photogallery.ui.PhotoAdapter
 import com.example.photogallery.viewmodel.PhotoGalleryViewModel
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.getSystemService
+import androidx.databinding.DataBindingUtil
+import com.example.photogallery.databinding.FragmentPhotoGalleryBinding
+import org.jetbrains.annotations.NotNull
 
 
 private const val TAG = "PhotoGalleryFragment"
 
 class PhotoGalleryFragment : Fragment() {
 
-    private lateinit var rvPhotos: RecyclerView
+    private lateinit var binding:FragmentPhotoGalleryBinding
     private lateinit var photoGalleryViewModel: PhotoGalleryViewModel
     private lateinit var photoAdapter: PhotoAdapter
 
@@ -35,10 +38,19 @@ class PhotoGalleryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_photo_gallery, container, false)
-        rvPhotos = view.findViewById(R.id.rvPhotos)
-        rvPhotos.layoutManager = GridLayoutManager(context, 3)
-        return view
+        binding =
+            FragmentPhotoGalleryBinding.inflate(
+                inflater,
+                container,
+                false
+            ).apply {
+                viewModel = photoGalleryViewModel
+            }
+        binding.rvPhotos.apply {
+            layoutManager = GridLayoutManager(context, 3)
+        }
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,7 +64,7 @@ class PhotoGalleryFragment : Fragment() {
             Observer { galleryItems ->
                 Log.d(TAG, "Items From ViewModel $galleryItems")
                 photoAdapter = PhotoAdapter(galleryItems)
-                rvPhotos.adapter = photoAdapter 
+                binding.rvPhotos.adapter = photoAdapter
             })
     }
 
@@ -97,9 +109,9 @@ class PhotoGalleryFragment : Fragment() {
 
     private fun hideKeyBoard() {
         val imm: InputMethodManager =
-                activity?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+            activity?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         val view = activity?.currentFocus
-        imm.hideSoftInputFromWindow(view?.windowToken,0)
+        imm.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 
 
